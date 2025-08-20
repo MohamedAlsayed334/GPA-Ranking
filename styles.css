@@ -327,47 +327,53 @@ button:active {
     background-color: var(--input-bg);
     padding: 20px;
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 
-.leaderboard h3 {
+.leaderboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 15px;
+}
+
+.leaderboard-header h3 {
     color: var(--primary);
-    text-align: center;
+    margin: 0;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-}
-
-th {
-    background-color: var(--primary);
-    color: white;
-}
-
-tr:hover {
-    background-color: var(--card-bg);
-}
-
-.current-user {
-    background-color: rgba(67, 97, 238, 0.1);
+.toggle-leaderboard {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
     font-weight: 600;
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
 }
 
-.logout {
-    background: var(--danger);
-    margin-top: 20px;
+.toggle-leaderboard:hover {
+    background: rgba(67, 97, 238, 0.1);
 }
 
-.logout:hover {
-    background: #d11466;
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.leaderboard-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.leaderboard-content.show {
+    max-height: 1000px;
 }
 
 .loading {
@@ -407,6 +413,46 @@ tr:hover {
 .email-hint i {
     margin-right: 8px;
     color: var(--primary);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    background-color: var(--primary);
+    color: white;
+}
+
+tr {
+    transition: background-color 0.3s ease;
+}
+
+tr:hover {
+    background-color: var(--card-bg);
+}
+
+.current-user {
+    background-color: rgba(67, 97, 238, 0.1);
+    font-weight: 600;
+}
+
+.logout {
+    background: var(--danger);
+    margin-top: 20px;
+}
+
+.logout:hover {
+    background: #d11466;
 }
 
 /* Modal Styles */
@@ -568,6 +614,16 @@ tr:hover {
         margin-top: 10px;
     }
 
+    .leaderboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .toggle-leaderboard {
+        align-self: flex-start;
+    }
+
     .theme-toggle {
         top: 10px;
         right: 10px;
@@ -704,5 +760,10 @@ tr:hover {
     button {
         padding: 10px 12px;
         font-size: 14px;
+    }
+
+    .toggle-leaderboard {
+        padding: 6px 12px;
+        font-size: 12px;
     }
 }
