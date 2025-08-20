@@ -29,13 +29,15 @@ const userRankSpan = document.getElementById('userRank');
 const totalStudentsSpan = document.getElementById('totalStudents');
 const rankExplanationSpan = document.getElementById('rankExplanation');
 const leaderboardBody = document.getElementById('leaderboardBody');
-const leaderboardTable = document.getElementById('leaderboardTable');
-const authLoading = document.getElementById('authLoading');
+const leaderboardContent = document.getElementById('leaderboardContent');
 const leaderboardLoading = document.getElementById('leaderboardLoading');
 const themeToggle = document.getElementById('themeToggle');
 const viewAccountBtn = document.getElementById('viewAccountBtn');
 const accountModal = document.getElementById('accountModal');
 const closeModal = document.getElementById('closeModal');
+const toggleLeaderboardBtn = document.getElementById('toggleLeaderboard');
+const toggleText = document.querySelector('.toggle-text');
+const toggleIcon = document.querySelector('.toggle-icon');
 
 // Password toggle elements
 const loginPasswordToggle = document.getElementById('loginPasswordToggle');
@@ -65,6 +67,7 @@ const registerContainer = authSection.querySelectorAll('.form-container')[1];
 // Current user data
 let currentUser = null;
 let allUsers = [];
+let isLeaderboardVisible = false;
 
 // Initialize the app
 function initApp() {
@@ -108,6 +111,9 @@ function initApp() {
 
     // Set up password visibility toggles
     setupPasswordToggles();
+
+    // Set up leaderboard toggle
+    setupLeaderboardToggle();
 }
 
 // Set up password visibility toggles
@@ -131,6 +137,26 @@ function togglePasswordVisibility(input, toggle) {
     } else {
         input.type = 'password';
         toggle.innerHTML = '<i class="fas fa-eye"></i>';
+    }
+}
+
+// Set up leaderboard toggle
+function setupLeaderboardToggle() {
+    toggleLeaderboardBtn.addEventListener('click', toggleLeaderboard);
+}
+
+// Toggle leaderboard visibility
+function toggleLeaderboard() {
+    isLeaderboardVisible = !isLeaderboardVisible;
+
+    if (isLeaderboardVisible) {
+        leaderboardContent.classList.add('show');
+        toggleText.textContent = 'Hide Leaderboard';
+        toggleIcon.style.transform = 'rotate(180deg)';
+    } else {
+        leaderboardContent.classList.remove('show');
+        toggleText.textContent = 'Show Leaderboard';
+        toggleIcon.style.transform = 'rotate(0deg)';
     }
 }
 
@@ -420,7 +446,6 @@ async function loadUserData() {
 // Load all users for ranking
 async function loadAllUsers() {
     leaderboardLoading.style.display = 'block';
-    leaderboardTable.style.display = 'none';
 
     try {
         // Get all users from Firestore, ordered by GPA
@@ -448,7 +473,6 @@ async function loadAllUsers() {
         showError(gpaError, 'Error loading leaderboard data.');
     } finally {
         leaderboardLoading.style.display = 'none';
-        leaderboardTable.style.display = 'table';
     }
 }
 
@@ -507,6 +531,12 @@ function showAuthSection() {
     loginPasswordToggle.innerHTML = '<i class="fas fa-eye"></i>';
     registerPasswordInput.type = 'password';
     registerPasswordToggle.innerHTML = '<i class="fas fa-eye"></i>';
+
+    // Reset leaderboard toggle
+    isLeaderboardVisible = false;
+    leaderboardContent.classList.remove('show');
+    toggleText.textContent = 'Show Leaderboard';
+    toggleIcon.style.transform = 'rotate(0deg)';
 }
 
 // Update dashboard with current user data
