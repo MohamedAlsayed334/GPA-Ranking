@@ -150,24 +150,32 @@
                 </div>
 
                 <div class="leaderboard">
-                    <h3>Top 10 Students</h3>
+                    <div class="leaderboard-header">
+                        <h3>Top 10 Students</h3>
+                        <button class="toggle-leaderboard" id="toggleLeaderboard">
+                            <span class="toggle-text">Show Leaderboard</span>
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        </button>
+                    </div>
                     <div class="loading" id="leaderboardLoading">
                         <i class="fas fa-spinner fa-spin"></i>
                         <p>Loading leaderboard...</p>
                     </div>
-                    <table id="leaderboardTable" style="display: none;">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Name</th>
-                                <th>Student ID</th>
-                                <th>GPA</th>
-                            </tr>
-                        </thead>
-                        <tbody id="leaderboardBody">
-                            <!-- Leaderboard data will be inserted here -->
-                        </tbody>
-                    </table>
+                    <div class="leaderboard-content" id="leaderboardContent">
+                        <table id="leaderboardTable">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Name</th>
+                                    <th>Student ID</th>
+                                    <th>GPA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboardBody">
+                                <!-- Leaderboard data will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <button class="logout" id="logoutBtn">Logout</button>
